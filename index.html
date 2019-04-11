@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gmail API Quickstart</title>
+    <meta charset="utf-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+<!--Add buttons to initiate auth sequence and sign out-->
+<button id="authorize_button" style="display: none;">Authorize</button>
+<button id="signout_button" style="display: none;">Sign Out</button>
+
+<div id="app">
+  <h4>{{ title }}</h4>
+  <form onsubmit="return false">
+  Filter: <input type="text" v-model="filter" size="30">
+  <br>
+  From: <input type="date" v-model="mindate" size="30">
+  <br>
+  Limit: <input type="number" v-model="limit" size="5">
+  <br>
+  <input type="submit" value="Update" onclick="retrieveMessages()">
+  
+  </form>
+  <div style="border:1px solid gray; padding:8px;margin:8px;">
+    <div v-for="(msg,index) in messages" :key="index">&quot;{{msg.recipientName}}&quot; &lt;{{msg.recipientEmail}}&gt;</div>
+  </div>
+  <table border="1" cellpadding="1" cellspacing="0">
+    <thead>
+      <tr>
+          <th v-if="name" v-for="(value,name) in messages[0]" :key="name">{{name}}</th>
+      </tr>
+    </thead>
+      <tr v-for="(msg,index) in messages" :key="index">
+    <td v-for="(value,name) in msg" :key="name">{{value}}</td>
+  </tr>
+  </table>
+</div>
+    
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="apikey.js"></script>
+    <script type="text/javascript" src="gmail.js"></script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
+</html>
